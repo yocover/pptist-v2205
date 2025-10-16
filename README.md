@@ -1,4 +1,8 @@
 # 🎨 PPTist
+本项目基于 PPTist 2022年5月发布的 Apache-2.0 协议版本进行二次开发，代码源自 [PPTist 早期版本代码文件](https://github.com/pipipi-pikachu/PPTist/archive/f1a35bb8e045124e37dcafd6acbf40b4531b69aa.zip)。
+
+我们高度尊重原作者的开源贡献，已严格遵循 Apache-2.0 协议要求：保留原始版权声明、明确衍生说明，并支持原项目最新版本的发展。如需了解原生功能或参与官方迭代，建议访问 [PPTist 最新版本](https://github.com/pipipi-pikachu/PPTist)。
+
 > 一个基于 Vue3.x + TypeScript 的在线演示文稿（幻灯片）应用，还原了大部分 Office PowerPoint 常用功能，支持 文字、图片、形状、线条、图表、表格、视频、音频、公式 几种最常用的元素类型，每一种元素都拥有高度可编辑能力，同时支持丰富的快捷键和右键菜单，支持导出本地 PPTX 文件，您可以在此基础上搭建自己的在线幻灯片应用。
 
 在线体验地址：[https://pipipi-pikachu.github.io/PPTist/](https://pipipi-pikachu.github.io/PPTist/)
@@ -251,4 +255,4 @@ A. 请注意在浏览器弹出的打印窗口调整相关的设置。建议：�
 
 
 # 📄 开源协议
-[Apache-2.0 License](https://github.com/pipipi-pikachu/PPTist/blob/master/LICENSE)
+[Apache-2.0 License](https://github.com/yocover/pptist-v2205/blob/master/LICENSE)
