@@ -16,7 +16,7 @@
       <Select
         style="flex: 3;"
         :value="richTextAttrs.fontname"
-        @change="value => emitRichTextCommand('fontname', value)"
+        @change="value => emitRichTextCommand('fontname', value as string)"
       >
         <template #suffixIcon><IconFontSize /></template>
         <SelectOptGroup label="系统字体">
@@ -33,7 +33,7 @@
       <Select
         style="flex: 2;"
         :value="richTextAttrs.fontsize"
-        @change="value => emitRichTextCommand('fontsize', value)"
+        @change="value => emitRichTextCommand('fontsize', value as string)"
       >
         <template #suffixIcon><IconAddText /></template>
         <SelectOption v-for="fontsize in fontSizeOptions" :key="fontsize" :value="fontsize">
@@ -75,7 +75,7 @@
         <Button 
           class="font-size-btn"
           style="flex: 2;"
-          @click="emitRichTextCommand('fontsize-add')"
+          @click="emitRichTextCommand('fontsize-add', '2')"
         ><IconFontSize />+</Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="减小字号">
@@ -159,7 +159,7 @@
             <div class="link-popover">
               <Input v-model:value="link" placeholder="请输入超链接" />
               <div class="btns">
-                <Button size="small" :disabled="!richTextAttrs.link" @click="updateLink()" style="margin-right: 5px;">移除</Button>
+                <Button size="small" :disabled="!richTextAttrs.link" @click="updateLink('')" style="margin-right: 5px;">移除</Button>
                 <Button size="small" type="primary" @click="updateLink(link)">确认</Button>
               </div>
             </div>
@@ -222,28 +222,28 @@
 
     <div class="row">
       <div style="flex: 2;">行间距：</div>
-      <Select style="flex: 3;" :value="lineHeight" @change="value => updateLineHeight(value)">
+      <Select style="flex: 3;" :value="lineHeight" @change="value => updateLineHeight(value as number)">
         <template #suffixIcon><IconRowHeight /></template>
         <SelectOption v-for="item in lineHeightOptions" :key="item" :value="item">{{item}}倍</SelectOption>
       </Select>
     </div>
     <div class="row">
       <div style="flex: 2;">段间距：</div>
-      <Select style="flex: 3;" :value="paragraphSpace" @change="value => updateParagraphSpace(value)">
+      <Select style="flex: 3;" :value="paragraphSpace" @change="value => updateParagraphSpace(value as number)">
         <template #suffixIcon><IconVerticalSpacingBetweenItems /></template>
         <SelectOption v-for="item in paragraphSpaceOptions" :key="item" :value="item">{{item}}px</SelectOption>
       </Select>
     </div>
     <div class="row">
       <div style="flex: 2;">字间距：</div>
-      <Select style="flex: 3;" :value="wordSpace" @change="value => updateWordSpace(value)">
+      <Select style="flex: 3;" :value="wordSpace" @change="value => updateWordSpace(value as number)">
         <template #suffixIcon><IconFullwidth /></template>
         <SelectOption v-for="item in wordSpaceOptions" :key="item" :value="item">{{item}}px</SelectOption>
       </Select>
     </div>
     <div class="row">
       <div style="flex: 2;">首行缩进：</div>
-      <Select style="flex: 3;" :value="textIndent" @change="value => updateTextIndent(value)">
+      <Select style="flex: 3;" :value="textIndent" @change="value => updateTextIndent(value as number)">
         <template #suffixIcon><IconIndentRight /></template>
         <SelectOption v-for="item in textIndentOptions" :key="item" :value="item">{{item}}px</SelectOption>
       </Select>
@@ -257,7 +257,7 @@
             @update:modelValue="value => updateFill(value)"
           />
         </template>
-        <ColorButton :color="fill" style="flex: 3;" />
+        <ColorButton :color="fill || '#fff'" style="flex: 3;" />
       </Popover>
     </div>
 

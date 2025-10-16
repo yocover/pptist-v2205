@@ -7,7 +7,7 @@ export default (clip: Ref<ImageElementClip | undefined>) => {
     if (!clip.value) return CLIPPATHS.rect
     const shape = clip.value.shape || ClipPathTypes.RECT
 
-    return CLIPPATHS[shape]
+    return CLIPPATHS[shape as keyof typeof CLIPPATHS]
   })
 
   const imgPosition = computed(() => {

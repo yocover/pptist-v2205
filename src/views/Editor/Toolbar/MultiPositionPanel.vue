@@ -2,24 +2,24 @@
   <div class="multi-position-panel">
     <ButtonGroup class="row">
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="左对齐">
-        <Button style="flex: 1;" @click="alignElement('left')"><IconAlignLeft /></Button>
+        <Button style="flex: 1;" @click="alignElement('left' as any)"><IconAlignLeft /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="水平居中">
-        <Button style="flex: 1;" @click="alignElement('horizontal')"><IconAlignHorizontally /></Button>
+        <Button style="flex: 1;" @click="alignElement('horizontal' as any)"><IconAlignHorizontally /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="右对齐">
-        <Button style="flex: 1;" @click="alignElement('right')"><IconAlignRight /></Button>
+        <Button style="flex: 1;" @click="alignElement('right' as any)"><IconAlignRight /></Button>
       </Tooltip>
     </ButtonGroup>
     <ButtonGroup class="row">
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="上对齐">
-        <Button style="flex: 1;" @click="alignElement('top')"><IconAlignTop /></Button>
+        <Button style="flex: 1;" @click="alignElement('top' as any)"><IconAlignTop /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="垂直居中">
-        <Button style="flex: 1;" @click="alignElement('vertical')"><IconAlignVertically /></Button>
+        <Button style="flex: 1;" @click="alignElement('vertical' as any)"><IconAlignVertically /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="下对齐">
-        <Button style="flex: 1;" @click="alignElement('bottom')"><IconAlignBottom /></Button>
+        <Button style="flex: 1;" @click="alignElement('bottom' as any)"><IconAlignBottom /></Button>
       </Tooltip>
     </ButtonGroup>
     <ButtonGroup class="row" v-if="displayItemCount > 2">

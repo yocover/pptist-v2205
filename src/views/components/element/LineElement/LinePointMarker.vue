@@ -26,6 +26,8 @@ const pathMap = {
 const rotateMap = {
   'arrow-start': 180,
   'arrow-end': 0,
+  'dot-start': 0,
+  'dot-end': 0,
 }
 
 export default defineComponent({

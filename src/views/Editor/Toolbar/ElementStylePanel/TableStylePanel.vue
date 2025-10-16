@@ -4,7 +4,7 @@
       <Select
         style="flex: 3;"
         :value="textAttrs.fontname"
-        @change="value => updateTextAttrs({ fontname: value })"
+        @change="value => updateTextAttrs({ fontname: value as string })"
       >
         <template #suffixIcon><IconFontSize /></template>
         <SelectOptGroup label="系统字体">
@@ -21,7 +21,7 @@
       <Select
         style="flex: 2;"
         :value="textAttrs.fontsize"
-        @change="value => updateTextAttrs({ fontsize: value })"
+        @change="value => updateTextAttrs({ fontsize: value as string })"
       >
         <template #suffixIcon><IconAddText /></template>
         <SelectOption v-for="fontsize in fontSizeOptions" :key="fontsize" :value="fontsize">
@@ -139,7 +139,7 @@
       <div class="switch-wrapper" style="flex: 3;">
         <Switch 
           :checked="hasTheme" 
-          @change="checked => toggleTheme(checked)" 
+          @change="checked => toggleTheme(!!checked)" 
         />
       </div>
     </div>
@@ -148,24 +148,24 @@
       <div class="row">
         <Checkbox 
           @change="e => updateTheme({ rowHeader: e.target.checked })" 
-          :checked="theme.rowHeader" 
+          :checked="theme?.rowHeader || false" 
           style="flex: 1;"
         >标题行</Checkbox>
         <Checkbox 
           @change="e => updateTheme({ rowFooter: e.target.checked })" 
-          :checked="theme.rowFooter" 
+          :checked="theme?.rowFooter || false" 
           style="flex: 1;"
         >汇总行</Checkbox>
       </div>
       <div class="row">
         <Checkbox 
           @change="e => updateTheme({ colHeader: e.target.checked })" 
-          :checked="theme.colHeader" 
+          :checked="theme?.colHeader || false" 
           style="flex: 1;"
         >第一列</Checkbox>
         <Checkbox 
           @change="e => updateTheme({ colFooter: e.target.checked })" 
-          :checked="theme.colFooter" 
+          :checked="theme?.colFooter || false" 
           style="flex: 1;"
         >最后一列</Checkbox>
       </div>
@@ -174,11 +174,11 @@
         <Popover trigger="click">
           <template #content>
             <ColorPicker
-              :modelValue="theme.color"
+              :modelValue="theme?.color || '#000'"
               @update:modelValue="value => updateTheme({ color: value })"
             />
           </template>
-          <ColorButton :color="theme.color" style="flex: 3;" />
+          <ColorButton :color="theme?.color || '#000'" style="flex: 3;" />
         </Popover>
       </div>
     </template>

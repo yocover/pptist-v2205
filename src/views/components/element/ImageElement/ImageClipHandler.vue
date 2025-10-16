@@ -37,7 +37,7 @@
         :class="['clip-point', point, rotateClassName]"
         v-for="point in ['left-top', 'right-top', 'left-bottom', 'right-bottom']" 
         :key="point" 
-        @mousedown.stop="$event => scaleClipRange($event, point)"
+        @mousedown.stop="$event => scaleClipRange($event, point as OperateResizeHandlers)"
       >
         <svg width="16" height="16" fill="#fff" stroke="#333">
           <path
@@ -51,7 +51,7 @@
         :class="['clip-point', point, rotateClassName]"
         v-for="point in ['top', 'bottom', 'left', 'right']" 
         :key="point" 
-        @mousedown.stop="$event => scaleClipRange($event, point)"
+        @mousedown.stop="$event => scaleClipRange($event, point as OperateResizeHandlers)"
       >
         <svg width="16" height="16" fill="#fff" stroke="#333">
           <path

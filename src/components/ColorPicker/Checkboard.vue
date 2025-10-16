@@ -5,12 +5,12 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 
-const checkboardCache = {}
+const checkboardCache: Record<string, string | null> = {}
 
 const renderCheckboard = (white: string, grey: string, size: number) => {
   const canvas = document.createElement('canvas')
   canvas.width = canvas.height = size * 2
-  const ctx = canvas.getContext('2d')
+  const ctx = canvas.getContext('2d', { willReadFrequently: true })
   
   if (!ctx) return null
 

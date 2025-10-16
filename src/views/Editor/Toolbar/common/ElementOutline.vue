@@ -5,7 +5,7 @@
       <div class="switch-wrapper" style="flex: 3;">
         <Switch 
           :checked="hasOutline" 
-          @change="checked => toggleOutline(checked)" 
+          @change="checked => toggleOutline(!!checked)" 
         />
       </div>
     </div>
@@ -14,8 +14,8 @@
         <div style="flex: 2;">边框样式：</div>
         <Select 
           style="flex: 3;" 
-          :value="outline.style" 
-          @change="value => updateOutline({ style: value })"
+          :value="outline?.style" 
+          @change="value => updateOutline({ style: value as 'solid' | 'dashed' })"
         >
           <SelectOption value="solid">实线边框</SelectOption>
           <SelectOption value="dashed">虚线边框</SelectOption>
@@ -26,18 +26,18 @@
         <Popover trigger="click">
           <template #content>
             <ColorPicker
-              :modelValue="outline.color"
+              :modelValue="outline?.color"
               @update:modelValue="value => updateOutline({ color: value })"
             />
           </template>
-          <ColorButton :color="outline.color" style="flex: 3;" />
+          <ColorButton :color="outline?.color ?? '#000'" style="flex: 3;" />
         </Popover>
       </div>
       <div class="row">
         <div style="flex: 2;">边框粗细：</div>
         <InputNumber 
-          :value="outline.width" 
-          @change="value => updateOutline({ width: value })" 
+          :value="outline?.width" 
+          @change="value => updateOutline({ width: Array.isArray(value) ? value[0] : value })" 
           style="flex: 3;" 
         />
       </div>

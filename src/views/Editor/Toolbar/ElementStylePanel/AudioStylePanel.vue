@@ -5,11 +5,11 @@
       <Popover trigger="click">
         <template #content>
           <ColorPicker
-            :modelValue="handleElement.color"
+            :modelValue="handleElement && handleElement.type === 'audio' ? handleElement.color : '#000'"
             @update:modelValue="value => updateAudio({ color: value })"
           />
         </template>
-        <ColorButton :color="handleElement.color" style="flex: 3;" />
+        <ColorButton :color="handleElement && handleElement.type === 'audio' ? handleElement.color : '#000'" style="flex: 3;" />
       </Popover>
     </div>
 
@@ -17,8 +17,8 @@
       <div style="flex: 2;">自动播放：</div>
       <div class="switch-wrapper" style="flex: 3;">
         <Switch 
-          :checked="handleElement.autoplay" 
-          @change="checked => updateAudio({ autoplay: checked })" 
+          :checked="handleElement && handleElement.type === 'audio' ? handleElement.autoplay : false" 
+          @change="checked => updateAudio({ autoplay: !!checked })" 
         />
       </div>
     </div>
@@ -27,8 +27,8 @@
       <div style="flex: 2;">循环播放：</div>
       <div class="switch-wrapper" style="flex: 3;">
         <Switch 
-          :checked="handleElement.loop" 
-          @change="checked => updateAudio({ loop: checked })" 
+          :checked="handleElement && handleElement.type === 'audio' ? handleElement.loop : false" 
+          @change="checked => updateAudio({ loop: !!checked })" 
         />
       </div>
     </div>

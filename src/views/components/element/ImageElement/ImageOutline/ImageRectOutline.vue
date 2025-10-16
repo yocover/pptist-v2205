@@ -10,7 +10,7 @@
       vector-effect="non-scaling-stroke" 
       stroke-linecap="butt" 
       stroke-miterlimit="8"
-      stroke-linejoin
+      stroke-linejoin="miter"
       fill="transparent"
       :rx="radius" 
       :ry="radius"

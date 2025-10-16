@@ -8,7 +8,7 @@
         :max="1"
         :step="0.1"
         :value="opacity"
-        @change="value => updateOpacity(value)" 
+        @change="value => updateOpacity(Array.isArray(value) ? value[0] : value)" 
       />
     </div>
   </div>

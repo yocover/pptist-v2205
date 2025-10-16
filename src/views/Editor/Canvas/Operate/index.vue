@@ -12,7 +12,7 @@
     <component
       v-if="isSelected"
       :is="currentOperateComponent"
-      :elementInfo="elementInfo"
+      :elementInfo="elementInfo as any"
       :handlerVisible="!elementInfo.lock && (isActiveGroupElement || !isMultiSelect)"
       :rotateElement="rotateElement"
       :scaleElement="scaleElement"

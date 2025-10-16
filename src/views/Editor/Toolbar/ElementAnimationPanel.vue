@@ -15,7 +15,7 @@
               @click="activeTab = tab.key"
             >{{tab.label}}</div>
           </div>
-          <template v-for="key in Object.keys(animations)">
+          <template v-for="key in Object.keys(animations) as AnimationType[]">
             <div :class="['animation-pool', key]" :key="key" v-if="activeTab === key">
               <div class="pool-type" :key="effect.name" v-for="effect in animations[key]">
                 <div class="type-title">{{effect.name}}：</div>
@@ -25,7 +25,7 @@
                     v-for="item in effect.children" :key="item.name"
                     @mouseenter="hoverPreviewAnimation = item.value"
                     @mouseleave="hoverPreviewAnimation = ''"
-                    @click="addAnimation(key, item.value)"
+                    @click="addAnimation(key as AnimationType, item.value)"
                   >
                     <div 
                       class="animation-box"
@@ -87,7 +87,7 @@
                 :max="3000"
                 :step="500"
                 :value="element.duration" 
-                @change="value => updateElementAnimationDuration(element.id, value)" 
+                @change="value => updateElementAnimationDuration(element.id, Array.isArray(value) ? value[0] : value)" 
                 style="flex: 5;" 
               />
             </div>
@@ -95,7 +95,7 @@
               <div style="flex: 3;">触发方式：</div>
               <Select
                 :value="element.trigger"
-                @change="value => updateElementAnimationTrigger(element.id, value)"
+                @change="value => updateElementAnimationTrigger(element.id, value as 'click' | 'meantime' | 'auto')"
                 style="flex: 5;"
               >
                 <SelectOption value="click">主动触发</SelectOption>
@@ -191,7 +191,7 @@ export default defineComponent({
           const el = currentSlide.value.elements.find(el => el.id === animation.elId)
           if (!el) continue
 
-          const elType = ELEMENT_TYPE_ZH[el.type]
+          const elType = ELEMENT_TYPE_ZH[el.type as keyof typeof ELEMENT_TYPE_ZH] || '未知'
           const animationEffect = animationEffects[animation.effect]
           animationSequence.push({
             ...animation,

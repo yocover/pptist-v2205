@@ -8,7 +8,7 @@
   >
     <component
       :is="currentElementComponent"
-      :elementInfo="elementInfo"
+      :elementInfo="elementInfo as any"
       target="thumbnail"
     ></component>
   </div>

@@ -2,12 +2,12 @@
   <div class="element-positopn-panel">
     <div class="title">层级：</div>
     <ButtonGroup class="row">
-      <Button style="flex: 1;" @click="orderElement(handleElement, 'top')"><IconSendToBack class="btn-icon" /> 置于顶层</Button>
-      <Button style="flex: 1;" @click="orderElement(handleElement, 'bottom')"><IconBringToFrontOne class="btn-icon" /> 置于底层</Button>
+      <Button style="flex: 1;" @click="handleElement && orderElement(handleElement, 'top' as any)"><IconSendToBack class="btn-icon" /> 置于顶层</Button>
+      <Button style="flex: 1;" @click="handleElement && orderElement(handleElement, 'bottom' as any)"><IconBringToFrontOne class="btn-icon" /> 置于底层</Button>
     </ButtonGroup>
     <ButtonGroup class="row">
-      <Button style="flex: 1;" @click="orderElement(handleElement, 'up')"><IconBringToFront class="btn-icon" /> 上移一层</Button>
-      <Button style="flex: 1;" @click="orderElement(handleElement, 'down')"><IconSentToBack class="btn-icon" /> 下移一层</Button>
+      <Button style="flex: 1;" @click="handleElement && orderElement(handleElement, 'up' as any)"><IconBringToFront class="btn-icon" /> 上移一层</Button>
+      <Button style="flex: 1;" @click="handleElement && orderElement(handleElement, 'down' as any)"><IconSentToBack class="btn-icon" /> 下移一层</Button>
     </ButtonGroup>
 
     <Divider />
@@ -15,24 +15,24 @@
     <div class="title">对齐：</div>
     <ButtonGroup class="row">
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="左对齐">
-        <Button style="flex: 1;" @click="alignElementToCanvas('left')"><IconAlignLeft /></Button>
+        <Button style="flex: 1;" @click="alignElementToCanvas('left' as any)"><IconAlignLeft /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="水平居中">
-        <Button style="flex: 1;" @click="alignElementToCanvas('horizontal')"><IconAlignVertically /></Button>
+        <Button style="flex: 1;" @click="alignElementToCanvas('horizontal' as any)"><IconAlignVertically /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="右对齐">
-        <Button style="flex: 1;" @click="alignElementToCanvas('right')"><IconAlignRight /></Button>
+        <Button style="flex: 1;" @click="alignElementToCanvas('right' as any)"><IconAlignRight /></Button>
       </Tooltip>
     </ButtonGroup>
     <ButtonGroup class="row">
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="上对齐">
-        <Button style="flex: 1;" @click="alignElementToCanvas('top')"><IconAlignTop /></Button>
+        <Button style="flex: 1;" @click="alignElementToCanvas('top' as any)"><IconAlignTop /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="垂直居中">
-        <Button style="flex: 1;" @click="alignElementToCanvas('vertical')"><IconAlignHorizontally /></Button>
+        <Button style="flex: 1;" @click="alignElementToCanvas('vertical' as any)"><IconAlignHorizontally /></Button>
       </Tooltip>
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="下对齐">
-        <Button style="flex: 1;" @click="alignElementToCanvas('bottom')"><IconAlignBottom /></Button>
+        <Button style="flex: 1;" @click="alignElementToCanvas('bottom' as any)"><IconAlignBottom /></Button>
       </Tooltip>
     </ButtonGroup>
 
@@ -43,14 +43,14 @@
       <InputNumber
         :step="5"
         :value="left"
-        @change="value => updateLeft(value)"
+        @change="value => updateLeft(Array.isArray(value) ? value[0] : value)"
         style="flex: 4;"
       />
       <div style="flex: 1;"></div>
       <InputNumber
         :step="5"
         :value="top"
-        @change="value => updateTop(value)"
+        @change="value => updateTop(Array.isArray(value) ? value[0] : value)"
         style="flex: 4;"
       />
     </div>
@@ -61,7 +61,7 @@
       <div style="flex: 4;" class="label">Y</div>
     </div>
 
-    <template v-if="handleElement.type !== 'line'">
+    <template v-if="handleElement && handleElement.type !== 'line'">
       <div class="row">
         <div style="flex: 3;">大小：</div>
         <InputNumber
@@ -69,10 +69,10 @@
           :max="1500"
           :step="5"
           :value="width"
-          @change="value => updateWidth(value)"
+          @change="value => updateWidth(Array.isArray(value) ? value[0] : value)"
           style="flex: 4;"
         />
-        <template v-if="['image', 'shape', 'audio'].includes(handleElement.type)">
+        <template v-if="handleElement && ['image', 'shape', 'audio'].includes(handleElement.type)">
           <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.5" title="解除宽高比锁定" v-if="fixedRatio">
             <IconLock style="flex: 1;" class="icon-btn" @click="updateFixedRatio(false)" />
           </Tooltip>
@@ -85,9 +85,9 @@
           :min="minSize"
           :max="800"
           :step="5"
-          :disabled="handleElement.type === 'text'" 
+          :disabled="handleElement && handleElement.type === 'text'" 
           :value="height" 
-          @change="value => updateHeight(value)"
+          @change="value => updateHeight(Array.isArray(value) ? value[0] : value)"
           style="flex: 4;"
         />
       </div>
@@ -99,7 +99,7 @@
       </div>
     </template>
 
-    <template v-if="!['line', 'video', 'audio'].includes(handleElement.type)">
+    <template v-if="handleElement && !['line', 'video', 'audio'].includes(handleElement.type)">
       <Divider />
 
       <div class="row">
@@ -123,7 +123,7 @@
           :max="180"
           :step="5"
           :value="rotate" 
-          @change="value => updateRotate(value)" 
+          @change="value => updateRotate(Array.isArray(value) ? value[0] : value)" 
           style="flex: 4;" 
         />
       </div>
@@ -156,7 +156,7 @@ export default defineComponent({
 
     const minSize = computed(() => {
       if (!handleElement.value) return 20
-      return MIN_SIZE[handleElement.value.type] || 20
+      return MIN_SIZE[handleElement.value.type as keyof typeof MIN_SIZE] || 20
     })
 
     watch(handleElement, () => {

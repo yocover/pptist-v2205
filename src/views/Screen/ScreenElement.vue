@@ -14,8 +14,9 @@
   >
     <component
       :is="currentElementComponent"
-      :elementInfo="elementInfo"
-    ></component>
+      :elementInfo="elementInfo as any"
+      v-bind="$attrs">
+    </component>
   </div>
 </template>
 

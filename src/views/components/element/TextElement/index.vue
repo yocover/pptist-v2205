@@ -45,7 +45,7 @@
           }"
           @update="value => updateContent(value)"
           @blur="checkEmptyText()"
-          @mousedown="$event => handleSelectElement($event, false)"
+          @mousedown="(e: MouseEvent) => handleSelectElement(e, false)"
         />
 
         <!-- 当字号过大且行高较小时，会出现文字高度溢出的情况，导致拖拽区域无法被选中，因此添加了以下节点避免该情况 -->
@@ -157,7 +157,7 @@ export default defineComponent({
     }
 
     const checkEmptyText = () => {
-      const pureText = props.elementInfo.content.replaceAll(/<[^>]+>/g, '')
+      const pureText = props.elementInfo.content.replace(/<[^>]+>/g, '')
       if (!pureText) slidesStore.deleteElement(props.elementInfo.id)
     }
 

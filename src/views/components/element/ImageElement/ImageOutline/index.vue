@@ -4,7 +4,7 @@
       v-if="clipShape.type === 'rect'"
       :width="elementInfo.width"
       :height="elementInfo.height"
-      :radius="clipShape.radius"
+      :radius="(clipShape as any).radius || '0'"
       :outline="elementInfo.outline"
     />
     <ImageEllipseOutline
@@ -18,7 +18,7 @@
       :width="elementInfo.width"
       :height="elementInfo.height"
       :outline="elementInfo.outline"
-      :createPath="clipShape.createPath"
+      :createPath="(clipShape as any).createPath"
     />
   </div>
 </template>

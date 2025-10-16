@@ -4,7 +4,7 @@
       <Select 
         style="flex: 10;" 
         :value="fillType" 
-        @change="value => updateFillType(value)"
+        @change="value => updateFillType(value as 'fill' | 'gradient')"
       >
         <SelectOption value="fill">纯色填充</SelectOption>
         <SelectOption value="gradient">渐变填充</SelectOption>
@@ -17,12 +17,12 @@
             @update:modelValue="value => updateFill(value)"
           />
         </template>
-        <ColorButton :color="fill" style="flex: 10;" />
+        <ColorButton :color="fill || '#fff'" style="flex: 10;" />
       </Popover>
       <Select 
         style="flex: 10;" 
-        :value="gradient.type" 
-        @change="value => updateGradient({ type: value })"
+        :value="gradient?.type || 'linear'" 
+        @change="value => updateGradient({ type: value as 'linear' | 'radial' })"
         v-else
       >
         <SelectOption value="linear">线性渐变</SelectOption>
@@ -36,11 +36,11 @@
         <Popover trigger="click">
           <template #content>
             <ColorPicker
-              :modelValue="gradient.color[0]"
-              @update:modelValue="value => updateGradient({ color: [value, gradient.color[1]] })"
+              :modelValue="gradient?.color[0] || '#fff'"
+              @update:modelValue="value => updateGradient({ color: [value, gradient?.color[1] || '#fff'] })"
             />
           </template>
-          <ColorButton :color="gradient.color[0]" style="flex: 3;" />
+          <ColorButton :color="gradient?.color[0] || '#fff'" style="flex: 3;" />
         </Popover>
       </div>
       <div class="row">
@@ -48,22 +48,22 @@
         <Popover trigger="click">
           <template #content>
             <ColorPicker
-              :modelValue="gradient.color[1]"
-              @update:modelValue="value => updateGradient({ color: [gradient.color[0], value] })"
+              :modelValue="gradient?.color[1] || '#fff'"
+              @update:modelValue="value => updateGradient({ color: [gradient?.color[0] || '#fff', value] })"
             />
           </template>
-          <ColorButton :color="gradient.color[1]" style="flex: 3;" />
+          <ColorButton :color="gradient?.color[1] || '#fff'" style="flex: 3;" />
         </Popover>
       </div>
-      <div class="row" v-if="gradient.type === 'linear'">
+      <div class="row" v-if="gradient?.type === 'linear'">
         <div style="flex: 2;">渐变角度：</div>
         <Slider
           class="slider"
           :min="0"
           :max="360"
           :step="15"
-          :value="gradient.rotate"
-          @change="value => updateGradient({ rotate: value })" 
+          :value="gradient?.rotate || 0"
+          @change="value => updateGradient({ rotate: Array.isArray(value) ? value[0] : value })" 
         />
       </div>
     </template>
@@ -71,12 +71,12 @@
     <ElementFlip />
     <Divider />
 
-    <template v-if="handleElement?.text?.content">
+    <template v-if="handleElement && handleElement.type === 'shape' && handleElement?.text?.content">
       <InputGroup compact class="row">
         <Select
           style="flex: 3;"
           :value="richTextAttrs.fontname"
-          @change="value => emitRichTextCommand('fontname', value)"
+          @change="value => emitRichTextCommand('fontname', value as string)"
         >
           <template #suffixIcon><IconFontSize /></template>
           <SelectOptGroup label="系统字体">
@@ -93,7 +93,7 @@
         <Select
           style="flex: 2;"
           :value="richTextAttrs.fontsize"
-          @change="value => emitRichTextCommand('fontsize', value)"
+          @change="value => emitRichTextCommand('fontsize', value as string)"
         >
           <template #suffixIcon><IconAddText /></template>
           <SelectOption v-for="fontsize in fontSizeOptions" :key="fontsize" :value="fontsize">

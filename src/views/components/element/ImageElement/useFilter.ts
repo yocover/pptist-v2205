@@ -6,7 +6,7 @@ export default (filters: Ref<ImageElementFilters | undefined>) => {
     if (!filters.value) return ''
     let filter = ''
     for (const key of Object.keys(filters.value)) {
-      filter += `${key}(${filters.value[key]}) `
+      filter += `${key}(${filters.value[key as keyof ImageElementFilters]}) `
     }
     return filter
   })

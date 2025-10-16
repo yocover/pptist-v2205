@@ -14,7 +14,7 @@
       />
     </div>
 
-    <div class="tools" :style="position">
+    <div class="tools" :style="position as any">
       <Tooltip :mouseLeaveDelay="0" :mouseEnterDelay="0.3" title="画笔">
         <div class="btn" :class="{ 'active': writingBoardModel === 'pen' }" @click="changeModel('pen')"><IconWrite class="icon" /></div>
       </Tooltip>

@@ -6,7 +6,7 @@
 
     <Divider />
 
-    <template v-if="handleElement.chartType === 'line'">
+    <template v-if="handleElement && handleElement.type === 'chart' && handleElement.chartType === 'line'">
       <div class="row">
         <Checkbox 
           @change="e => updateOptions({ showArea: e.target.checked })"
@@ -26,7 +26,7 @@
         >使用平滑曲线</Checkbox>
       </div>
     </template>
-    <div class="row" v-if="handleElement.chartType === 'bar'">
+    <div class="row" v-if="handleElement && handleElement.type === 'chart' && handleElement.chartType === 'bar'">
       <Checkbox 
         @change="e => updateOptions({ horizontalBars: e.target.checked })" 
         :checked="horizontalBars"
@@ -36,7 +36,7 @@
         :checked="stackBars"
       >堆叠样式</Checkbox>
     </div>
-    <div class="row" v-if="handleElement.chartType === 'pie'">
+    <div class="row" v-if="handleElement && handleElement.type === 'chart' && handleElement.chartType === 'pie'">
       <Checkbox 
         @change="e => updateOptions({ donut: e.target.checked })" 
         :checked="donut"
@@ -47,7 +47,7 @@
 
     <div class="row">
       <div style="flex: 2;">图例：</div>
-      <Select style="flex: 3;" :value="legend" @change="value => updateLegend(value)">
+      <Select style="flex: 3;" :value="legend" @change="value => updateLegend(value as '' | 'top' | 'bottom')">
         <SelectOption value="">不显示</SelectOption>
         <SelectOption value="top">显示在上方</SelectOption>
         <SelectOption value="bottom">显示在下方</SelectOption>
@@ -65,7 +65,7 @@
             @update:modelValue="value => updateFill(value)"
           />
         </template>
-        <ColorButton :color="fill" style="flex: 3;" />
+        <ColorButton :color="fill ?? '#fff'" style="flex: 3;" />
       </Popover>
     </div>
     <div class="row">
@@ -143,7 +143,7 @@
       destroyOnClose
     >
       <ChartDataEditor 
-        :data="handleElement.data"
+        :data="handleElement && handleElement.type === 'chart' ? handleElement.data : { labels: [], legends: [], series: [] }"
         @close="chartDataEditorVisible = false"
         @save="value => updateData(value)"
       />

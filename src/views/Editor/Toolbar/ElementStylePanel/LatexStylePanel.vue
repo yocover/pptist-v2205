@@ -9,11 +9,11 @@
       <Popover trigger="click">
         <template #content>
           <ColorPicker
-            :modelValue="handleElement.color"
+            :modelValue="handleElement && handleElement.type === 'latex' ? handleElement.color : '#000'"
             @update:modelValue="value => updateLatex({ color: value })"
           />
         </template>
-        <ColorButton :color="handleElement.color" style="flex: 3;" />
+        <ColorButton :color="handleElement && handleElement.type === 'latex' ? handleElement.color : '#000'" style="flex: 3;" />
       </Popover>
     </div>
     <div class="row">
@@ -21,8 +21,8 @@
       <InputNumber 
         :min="1"
         :max="3"
-        :value="handleElement.strokeWidth" 
-        @change="value => updateLatex({ strokeWidth: value })" 
+        :value="handleElement && handleElement.type === 'latex' ? handleElement.strokeWidth : 1" 
+        @change="value => updateLatex({ strokeWidth: Array.isArray(value) ? value[0] : value })" 
         style="flex: 3;" 
       />
     </div>
@@ -35,7 +35,7 @@
       destroyOnClose
     >
       <LaTeXEditor 
-        :value="handleElement.latex"
+        :value="handleElement && handleElement.type === 'latex' ? handleElement.latex : ''"
         @close="latexEditorVisible = false"
         @update="data => { updateLatexData(data); latexEditorVisible = false }"
       />

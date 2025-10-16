@@ -4,8 +4,8 @@
       <div style="flex: 2;">线条样式：</div>
       <Select 
         style="flex: 3;" 
-        :value="handleElement.style" 
-        @change="value => updateLine({ style: value })"
+        :value="handleElement && handleElement.type === 'line' ? handleElement.style : 'solid'" 
+        @change="value => updateLine({ style: value as 'solid' | 'dashed' })"
       >
         <SelectOption value="solid">实线</SelectOption>
         <SelectOption value="dashed">虚线</SelectOption>
@@ -16,18 +16,18 @@
       <Popover trigger="click">
         <template #content>
           <ColorPicker
-            :modelValue="handleElement.color"
+            :modelValue="handleElement && handleElement.type === 'line' ? handleElement.color : '#000'"
             @update:modelValue="value => updateLine({ color: value })"
           />
         </template>
-        <ColorButton :color="handleElement.color" style="flex: 3;" />
+        <ColorButton :color="handleElement && handleElement.type === 'line' ? handleElement.color : '#000'" style="flex: 3;" />
       </Popover>
     </div>
     <div class="row">
       <div style="flex: 2;">线条宽度：</div>
       <InputNumber 
-        :value="handleElement.width" 
-        @change="value => updateLine({ width: value })" 
+        :value="handleElement && handleElement.type === 'line' ? handleElement.width : 2" 
+        @change="value => updateLine({ width: Array.isArray(value) ? value[0] : value })" 
         style="flex: 3;" 
       />
     </div>
@@ -36,8 +36,8 @@
       <div style="flex: 2;">起点样式：</div>
       <Select 
         style="flex: 3;" 
-        :value="handleElement.points[0]" 
-        @change="value => updateLine({ points: [value, handleElement.points[1]] })"
+        :value="handleElement && handleElement.type === 'line' ? handleElement.points[0] : ''" 
+        @change="value => updateLine({ points: [value as '' | 'arrow' | 'dot', handleElement && handleElement.type === 'line' ? handleElement.points[1] : ''] })"
       >
         <SelectOption value="">无</SelectOption>
         <SelectOption value="arrow">箭头</SelectOption>
@@ -48,8 +48,8 @@
       <div style="flex: 2;">终点样式：</div>
       <Select 
         style="flex: 3;" 
-        :value="handleElement.points[1]" 
-        @change="value => updateLine({ points: [handleElement.points[0], value] })"
+        :value="handleElement && handleElement.type === 'line' ? handleElement.points[1] : ''" 
+        @change="value => updateLine({ points: [handleElement && handleElement.type === 'line' ? handleElement.points[0] : '', value as '' | 'arrow' | 'dot'] })"
       >
         <SelectOption value="">无</SelectOption>
         <SelectOption value="arrow">箭头</SelectOption>

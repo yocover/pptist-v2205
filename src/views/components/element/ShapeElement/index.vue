@@ -48,7 +48,7 @@
               vector-effect="non-scaling-stroke" 
               stroke-linecap="butt" 
               stroke-miterlimit="8"
-              stroke-linejoin="" 
+              stroke-linejoin="miter" 
               :d="elementInfo.path" 
               :fill="elementInfo.gradient ? `url(#editabel-gradient-${elementInfo.id})` : elementInfo.fill"
               :stroke="outlineColor"
@@ -69,7 +69,7 @@
             :value="text.content"
             @update="value => updateText(value)"
             @blur="checkEmptyText()"
-            @mousedown="$event => handleSelectElement($event, false)"
+            @mousedown="(e: MouseEvent) => handleSelectElement(e, false)"
           />
         </div>
       </div>
@@ -167,7 +167,7 @@ export default defineComponent({
     const checkEmptyText = () => {
       if (!props.elementInfo.text) return
 
-      const pureText = props.elementInfo.text.content.replaceAll(/<[^>]+>/g, '')
+      const pureText = props.elementInfo.text.content.replace(/<[^>]+>/g, '')
       if (!pureText) {
         slidesStore.removeElementProps({ id: props.elementInfo.id, propName: 'text' })
         addHistorySnapshot()

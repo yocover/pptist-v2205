@@ -16,7 +16,7 @@
       <ImageClipHandler
         v-if="isCliping"
         :src="elementInfo.src"
-        :clipData="elementInfo.clip"
+        :clipData="elementInfo.clip as any"
         :width="elementInfo.width"
         :height="elementInfo.height"
         :top="elementInfo.top"

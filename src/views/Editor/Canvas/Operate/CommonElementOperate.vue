@@ -15,7 +15,7 @@
         :type="point.direction"
         :rotate="elementInfo.rotate"
         :style="point.style"
-        @mousedown.stop="$event => scaleElement($event, elementInfo, point.direction)"
+        @mousedown.stop="(e: MouseEvent) => scaleElement(e, elementInfo, point.direction)"
       />
       <RotateHandler
         class="operate-rotate-handler" 

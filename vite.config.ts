@@ -33,9 +33,10 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import '@/assets/styles/variable.scss';
-          @import '@/assets/styles/mixin.scss';
-        `
+          @use '@/assets/styles/variable.scss' as *;
+          @use '@/assets/styles/mixin.scss' as *;
+        `,
+        silenceDeprecations: ['import', 'global-builtin']
       },
       less: {
         modifyVars: {
@@ -54,7 +55,7 @@ export default defineConfig({
     assetsDir: 'assets'
   },
   server: {
-    port: 8080,
-    open: true
+    port: 5340,
+    open: false
   }
 })

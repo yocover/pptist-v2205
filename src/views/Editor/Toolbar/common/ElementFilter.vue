@@ -5,7 +5,7 @@
       <div class="switch-wrapper" style="flex: 3;">
         <Switch 
           :checked="hasFilters" 
-          @change="checked => toggleFilters(checked)" 
+          @change="checked => toggleFilters(!!checked)" 
         />
       </div>
     </div>
@@ -18,7 +18,7 @@
           :min="0"
           :step="filter.step"
           :value="filter.value"
-          @change="value => updateFilter(filter, value)"
+          @change="value => updateFilter(filter, Array.isArray(value) ? value[0] : value)"
         />
       </div>
     </div>
@@ -69,7 +69,7 @@ export default defineComponent({
       const filters = handleElement.value.filters
       if (filters) {
         filterOptions.value = defaultFilters.map(item => {
-          if (filters[item.key] !== undefined) return { ...item, value: parseInt(filters[item.key]) }
+          if (filters[item.key as keyof typeof filters] !== undefined) return { ...item, value: parseInt(filters[item.key as keyof typeof filters]!) }
           return item
         })
         hasFilters.value = true

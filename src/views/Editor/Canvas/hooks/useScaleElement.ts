@@ -90,7 +90,7 @@ const getOppositePoint = (direction: string, points: ReturnType<typeof getRotate
     [OperateResizeHandlers.LEFT]: points.rightPoint,
     [OperateResizeHandlers.RIGHT]: points.leftPoint,
   }
-  return oppositeMap[direction]
+  return oppositeMap[direction as keyof typeof oppositeMap]
 }
 
 export default (
@@ -125,7 +125,7 @@ export default (
     const startPageY = e.pageY
 
     // 元素最小缩放限制
-    const minSize = MIN_SIZE[element.type] || 20
+    const minSize = MIN_SIZE[element.type as keyof typeof MIN_SIZE] || 20
     const getSizeWithinRange = (size: number) => size < minSize ? minSize : size
 
     let points: ReturnType<typeof getRotateElementPoints>

@@ -2,7 +2,7 @@
   <div class="image-style-panel">
     <div 
       class="origin-image"
-      :style="{ backgroundImage: `url(${handleElement.src})` }"
+      :style="{ backgroundImage: `url(${handleElement && handleElement.type === 'image' ? handleElement.src : ''})` }"
     ></div>
 
     <ElementFlip />

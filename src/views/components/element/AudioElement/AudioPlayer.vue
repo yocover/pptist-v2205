@@ -34,9 +34,9 @@
           </div>
           <div
             class="volume-bar-wrap"
-            @mousedown="$event => handleMousedownVolumeBar($event)"
-            @touchstart="$event => handleMousedownVolumeBar($event)"
-            @click="$event => handleClickVolumeBar($event)"
+            @mousedown="handleMousedownVolumeBar"
+            @touchstart="handleMousedownVolumeBar"
+            @click="handleClickVolumeBar"
           >
             <div class="volume-bar" ref="volumeBarRef">
               <div class="volume-bar-inner" :style="{ width: volumeBarWidth }">
@@ -54,8 +54,8 @@
       <div 
         class="bar-wrap"
         ref="playBarWrap"
-        @mousedown="$event => handleMousedownPlayBar($event)"
-        @touchstart="$event => handleMousedownPlayBar($event)"
+        @mousedown="handleMousedownPlayBar"
+        @touchstart="handleMousedownPlayBar"
         @mousemove="$event => handleMousemovePlayBar($event)"
         @mouseenter="playBarTimeVisible = true"
         @mouseleave="playBarTimeVisible = false"
@@ -227,7 +227,7 @@ export default defineComponent({
       document.removeEventListener('touchend', thumbUp)
     }
 
-    const handleMousedownPlayBar = () => {
+    const handleMousedownPlayBar = (e: MouseEvent | TouchEvent) => {
       document.addEventListener('mousemove', thumbMove)
       document.addEventListener('touchmove', thumbMove)
       document.addEventListener('mouseup', thumbUp)
@@ -248,7 +248,7 @@ export default defineComponent({
       document.removeEventListener('touchend', volumeUp)
     }
 
-    const handleMousedownVolumeBar = () => {
+    const handleMousedownVolumeBar = (e: MouseEvent | TouchEvent) => {
       document.addEventListener('mousemove', volumeMove)
       document.addEventListener('touchmove', volumeMove)
       document.addEventListener('mouseup', volumeUp)

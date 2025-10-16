@@ -56,7 +56,7 @@ export default defineComponent({
         'pptx': ExportPPTX,
         'pptist': ExportSpecificFile,
       }
-      return dialogMap[dialogForExport.value] || null
+      return dialogMap[dialogForExport.value as keyof typeof dialogMap] || null
     })
 
     return {

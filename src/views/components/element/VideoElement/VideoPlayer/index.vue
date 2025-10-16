@@ -408,5 +408,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-@import './style.scss';
+@use './style.scss' as *;
 </style>

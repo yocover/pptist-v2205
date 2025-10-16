@@ -5,13 +5,13 @@
     :contenteditable="contenteditable"
     @focus="handleFocus"
     @blur="handleBlur"
-    @input="$event => handleInput($event)"
+    @input="handleInput"
     v-html="text"
   ></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onUnmounted, ref, watch } from 'vue'
+import { defineComponent, onUnmounted, ref, watch, PropType } from 'vue'
 import { pasteCustomClipboardString, pasteExcelClipboardString } from '@/utils/clipboard'
 
 export default defineComponent({
@@ -23,7 +23,7 @@ export default defineComponent({
       default: '',
     },
     contenteditable: {
-      type: [Boolean, String],
+      type: [Boolean, String] as PropType<boolean | 'inherit' | 'plaintext-only'>,
       default: false,
     },
   },

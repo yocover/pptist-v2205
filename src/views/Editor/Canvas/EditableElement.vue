@@ -9,8 +9,8 @@
   >
     <component
       :is="currentElementComponent"
-      :elementInfo="elementInfo"
-      :selectElement="selectElement"
+      :elementInfo="elementInfo as any"
+      :selectElement="selectElement as any"
       :contextmenus="contextmenus"
     ></component>
   </div>

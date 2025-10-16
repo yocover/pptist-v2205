@@ -17,7 +17,7 @@
   </div>
 
   <Modal
-    :visible="!!dialogForExport" 
+    :open="!!dialogForExport" 
     :footer="null" 
     centered
     :closable="false"
