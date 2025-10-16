@@ -255,4 +255,4 @@ A. 请注意在浏览器弹出的打印窗口调整相关的设置。建议：�
 
 
 # 📄 开源协议
-[Apache-2.0 License](https://github.com/yocover/pptist-v2205/blob/master/LICENSE)
+[Apache-2.0 License](https://github.com/yocover/pptist-v2205/blob/main/LICENSE)
